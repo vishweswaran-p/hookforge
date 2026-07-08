@@ -16,7 +16,7 @@
     "db:migrate": "npm run migrate -w @hookforge/db",
     "lint": "npm run lint --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "typecheck": "npm run typecheck -w @hookforge/shared && npm run typecheck -w @hookforge/db && npm run typecheck -w @hookforge/api && npm run typecheck -w @hookforge/worker"
+    "typecheck": "npm run build -w @hookforge/shared && npm run build -w @hookforge/db && npm run typecheck -w @hookforge/api && npm run typecheck -w @hookforge/worker"
   },
   "engines": {
     "node": ">=20"
