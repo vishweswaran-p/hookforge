@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum DeliveryStatus {
+  PENDING
+  DELIVERED
+  FAILED
+  DEAD_LETTERED
+}
+
+model Project {
+  id          String            @id @default(cuid())
+  name        String
+  apiKeyHash  String            @unique
+  createdAt   DateTime          @default(now())
+  endpoints   WebhookEndpoint[]
+  events      WebhookEvent[]
+}
+
+model WebhookEndpoint {
+  id          String            @id @default(cuid())
+  projectId   String
+  url         String
+  secret      String
+  description String?
+  isActive    Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  deliveries  DeliveryAttempt[]
+
+  @@index([projectId])
+}
+
+model WebhookEvent {
+  id          String            @id @default(cuid())
+  projectId   String
+  type        String
+  payload     Json
+  createdAt   DateTime          @default(now())
+  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  deliveries  DeliveryAttempt[]
+
+  @@index([projectId, createdAt])
+}
+
+model DeliveryAttempt {
+  id             String          @id @default(cuid())
+  eventId        String
+  endpointId     String
+  status         DeliveryStatus  @default(PENDING)
+  attemptNumber  Int             @default(0)
+  nextAttemptAt  DateTime        @default(now())
+  responseCode   Int?
+  responseBody   String?
+  error          String?
+  latencyMs      Int?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  event          WebhookEvent    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  endpoint       WebhookEndpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([endpointId])
+  @@index([status, nextAttemptAt])
+}
