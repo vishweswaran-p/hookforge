@@ -3,7 +3,7 @@ import { defineConfig } from "prisma/config";
 
 const databaseUrl =
   process.env.DATABASE_URL ??
-  "postgresql://hookforge:hookforge@localhost:5432/hookforge?schema=public";
+  "postgresql://hookforge:hookforge@localhost:5433/hookforge?schema=public";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",

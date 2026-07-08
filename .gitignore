@@ -5,5 +5,4 @@ dist/
 .DS_Store
 coverage/
 *.log
-packages/db/prisma/migrations/
 packages/db/src/generated/prisma/
