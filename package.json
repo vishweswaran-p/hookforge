@@ -1,0 +1,32 @@
+{
+  "name": "hookforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-grade webhook delivery and retry platform built with Node.js.",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @hookforge/shared && npm run build -w @hookforge/db && npm run build -w @hookforge/api && npm run build -w @hookforge/worker",
+    "dev:api": "npm run build -w @hookforge/shared && npm run build -w @hookforge/db && npm run dev -w @hookforge/api",
+    "dev:worker": "npm run build -w @hookforge/shared && npm run build -w @hookforge/db && npm run dev -w @hookforge/worker",
+    "db:generate": "npm run generate -w @hookforge/db",
+    "db:migrate": "npm run migrate -w @hookforge/db",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck -w @hookforge/shared && npm run typecheck -w @hookforge/db && npm run typecheck -w @hookforge/api && npm run typecheck -w @hookforge/worker"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.8.0",
+    "tsx": "^4.23.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  }
+}

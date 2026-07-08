@@ -1,0 +1,19 @@
+{
+  "name": "@hookforge/worker",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/worker.js",
+  "types": "dist/worker.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/worker.ts",
+    "start": "node dist/worker.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hookforge/db": "0.1.0",
+    "@hookforge/shared": "0.1.0",
+    "bullmq": "^5.79.3",
+    "zod": "^4.4.3"
+  }
+}

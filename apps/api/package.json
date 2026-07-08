@@ -1,0 +1,23 @@
+{
+  "name": "@hookforge/api",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/sensible": "^6.0.4",
+    "@fastify/swagger": "^9.8.0",
+    "@fastify/swagger-ui": "^6.1.0",
+    "@hookforge/db": "0.1.0",
+    "@hookforge/shared": "0.1.0",
+    "bullmq": "^5.79.3",
+    "fastify": "^5.10.0",
+    "zod": "^4.4.3"
+  }
+}
